@@ -1,50 +1,85 @@
 ﻿
-import threading
-import time
-import random
+"""
+Source code from our lectures.
+class Rectangle(Shape):
+  def __init__(self, width, height, x=0, y=0):
+    super().__init__(x, y)
+    self.width = width
+    self.height = height
 
-class Printer:
-    def __init__(self):
-        self.lock = threading.Lock()
-    
-    def print_ticket(self, client_id):
-        with self.lock:
-            print(f"Printer started printing ticket for Client {client_id}.")
-            time.sleep(random.uniform(0.5, 1.5))  # Simulate printing time
-            print(f"Printer finished printing ticket for Client {client_id}.")
+class Square(Rectangle):
+  def __init__(self, side, x=0, y=0):
+    super().__init__(side, side, x, y)
 
-class TicketingWindow:
-    def __init__(self, printer):
-        self.lock = threading.Lock()
-        self.printer = printer
-    
-    def serve_client(self, client_id):
-        with self.lock:
-            print(f"Ticketing Window is serving Client {client_id}.")
-            time.sleep(random.uniform(1, 2))  # Simulate serving time
-            self.printer.print_ticket(client_id)
-            print(f"Client {client_id} has left the ticketing window.")
+What's wrong here? The problem lies in Square class, which uses Rectangle's constructor, which allows for width and height to have different values.
+And this only works for rectangle, but not a square.
+What can we do to fix that?
+We can you built-in properties (@property decorators), which transforms an attribute to a property:
+"""
 
-class Client(threading.Thread):
-    def __init__(self, client_id, ticketing_window):
-        threading.Thread.__init__(self)
-        self.client_id = client_id
-        self.ticketing_window = ticketing_window
-    
-    def run(self):
-        print(f"Client {self.client_id} is arriving at the ticketing window.")
-        self.ticketing_window.serve_client(self.client_id)
 
-def main():
-    printer = Printer()
-    windows = [TicketingWindow(printer) for _ in range(2)]  # 2 ticketing windows
-    clients = [Client(client_id, windows[client_id % 2]) for client_id in range(6)]  # 6 clients
+class Shape:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
 
-    for client in clients:
-        client.start()  # Start all client threads
+class Rectangle(Shape):
+    def __init__(self, width, height, x=0, y=0):
+        super().__init__(x, y)
+        self._width = width
+        self._height = height
 
-    for client in clients:
-        client.join()  # Wait for all client threads to finish
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        self._width = value
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, value):
+        self._height = value
+
+class Square(Rectangle):
+    def __init__(self, side, x=0, y=0):
+        super().__init__(side, side, x, y)
+
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+    #now we can be sure that width and height has the same value
+        self._width = self._height = value
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    #same if we change height
+    def height(self, value):
+        self._width = self._height = value
 
 if __name__ == "__main__":
-    main()
+ shape = Shape(x=100, y=50)
+ print(f"Shape: x={shape.x}, y={shape.y}")
+
+ rectangle = Rectangle(width=50, height=100, x=0, y=0)
+ print(f"Rectangle: x={rectangle.x}, y={rectangle.y}, width={rectangle.width}, height={rectangle.height}")
+
+ square = Square(side=10, x=5, y=5)
+ print(f"Square: x={square.x}, y={square.y}, width={square.width}, height={square.height}")
+
+ # now lets change width and then height and check whether height and width respectively also changed.
+ square.width = 20 
+ print(f"Width increased to {square.width}, Square: width={square.width}, height={square.height}")
+
+ square.height = 30
+ print(f"Height increased to {square.height}, Square: width={square.width}, height={square.height}")
