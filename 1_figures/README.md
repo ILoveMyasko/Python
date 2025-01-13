@@ -5,7 +5,7 @@
 
 Код из лекций: 
 
-class Rectangle(Shape):
+`class Rectangle(Shape):
   def __init__(self, width, height, x=0, y=0):
     super().__init__(x, y)
     self.width = width
@@ -13,7 +13,7 @@ class Rectangle(Shape):
 class Square(Rectangle):
   def __init__(self, side, x=0, y=0):
     super().__init__(side, side, x, y)
-
+`
 Проблема этого кода в том, что он позволяет нам менять ширину(width) и высоту(height) квадрата отдельно.
 Например, такой код сделает ширину и высоту нашего квадрата разными (что, очевидно, противоречит определению квадрата как фигуры): 
     square = Square(5,0,0) # width = height = 5
