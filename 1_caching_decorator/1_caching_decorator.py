@@ -11,7 +11,7 @@ def caching_decorator(max_cache_size=None):
             #we can use frozen set to create keys for certain arguments of a function
             key = (args, frozenset(kwargs.items()))
             if key in cache:
-                # If we just used our value we move it to the end (our logic that we will probably need it after other stored values)
+                # if we just used our value we move it to the end (our logic that we will probably need it after other stored values)
                 cache.move_to_end(key)
                 print(f"Fetching from cache for {func.__name__}: {key}")
                 return cache[key]
@@ -25,7 +25,7 @@ def caching_decorator(max_cache_size=None):
                     print(f"Cache overflow for cashing decorator! Removing an element: {oldest_key}")
                     cache.pop(oldest_key)
                 return result
-        #we can also manually clear
+        #we can also manually clear our cache
         def clear_cache():
             nonlocal cache
             cache.clear()
@@ -34,10 +34,12 @@ def caching_decorator(max_cache_size=None):
         return wrapper
 
     return decorator
-# for example lets set max cache size as 2.
+
+# for example lets set max cache size to 2 for "multiply" and "add" functions. 
+
 @caching_decorator(max_cache_size=2)
 def multiply(a, b):
-    # Using sleep we imitate long calculations
+    # Using sleep we imitate long calculations...
     from time import sleep
     sleep(1)
     return a * b

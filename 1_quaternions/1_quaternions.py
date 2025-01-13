@@ -82,6 +82,7 @@ class Quaternion:
         )
 
     def rotate_vector(self, vector):
+        #resultVector = q * originalVector * q'; here q is our original quaternion(self)
         q_vector = Quaternion(0, vector[0], vector[1], vector[2])
         rotated_q = self * q_vector * self.inverse
         return (rotated_q.x, rotated_q.y, rotated_q.z)
@@ -109,7 +110,7 @@ class Quaternion:
                 math.isclose(self.z, other.z)
             )
         elif isinstance(other, (int, float)):
-            # Сравнение с вещественным числом (сравнивается только скалярная часть w)
+            """comare to int/float"""
             return math.isclose(self.w, other) and math.isclose(self.x, 0) and math.isclose(self.y, 0) and math.isclose(self.z, 0)
         else:
             return False
@@ -128,6 +129,7 @@ class Quaternion:
         return f"({'- ' if self.w < 0 else ''}{abs(self.w)} {'+' if self.x >= 0 else '-'} {abs(self.x)}i {'+' if self.y >= 0 else '-'} {abs(self.y)}j {'+' if self.z >= 0 else '-'} {abs(self.z)}k)"
 
 if __name__ == "__main__":
+
     """An example"""
     q1 = Quaternion(2, -1, 4, 6)
     q2 = Quaternion(4, 0, -1, 2)
@@ -153,3 +155,5 @@ if __name__ == "__main__":
     print(f"Check if q2 is pure Im : {q2.is_pure_imaginary()}")
     print(f"Check if (1+i) complex : {Quaternion(1,1,0,0).is_complex()}")
     print()
+    print(f"Rotate : {q2.rotate_vector(vector=[1,2,3])}")
+   
