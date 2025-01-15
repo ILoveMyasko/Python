@@ -92,7 +92,7 @@ async def cancel(update: Update, context: CallbackContext) -> int:
     return ConversationHandler.END
 
 if __name__ == '__main__':
-    application = ApplicationBuilder().token('7361029236:AAGs7qp56N0J5lr9Irk60VvO3c5dxXYRGGc').build()
+    application = ApplicationBuilder().token('TOKEN').build() #insert your token here
     
     start_handler = CommandHandler('start', start)
     unknown_handler = MessageHandler(filters.COMMAND, unknown)
@@ -109,6 +109,6 @@ if __name__ == '__main__':
     application.add_handler(image_handler)
     application.add_handler(conv_handler)
     application.add_handler(languages_handler)
-
     application.add_handler(unknown_handler)
+
     application.run_polling()
