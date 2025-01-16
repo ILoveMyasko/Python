@@ -1,5 +1,4 @@
-﻿#7361029236:AAGs7qp56N0J5lr9Irk60VvO3c5dxXYRGGc
-
+﻿
 import logging
 from PIL import Image, ImageEnhance
 from telegram import Update
