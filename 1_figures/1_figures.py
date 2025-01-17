@@ -56,17 +56,14 @@ class Square(Rectangle):
         self._width = self._height = value
 
 if __name__ == "__main__":
- shape = Shape(x=100, y=50)
- print(f"Shape: x={shape.x}, y={shape.y}")
-
  rectangle = Rectangle(width=50, height=100, x=0, y=0)
  rectangle.height = 40
- print(f"Rectangle: x={rectangle.x}, y={rectangle.y}, width={rectangle.width}, height={rectangle.height}")
+ print(f"Rectangle: width={rectangle.width}, height={rectangle.height}")
  print(f"Rectangle's area = {rectangle.area}")
 
 
  square = Square(side=10, x=5, y=5)
- print(f"Square: x={square.x}, y={square.y}, width={square.width}, height={square.height}")
+ print(f"Square: width={square.width}, height={square.height}")
 
  # now lets change width and then height and check whether height and width respectively also changed.
  square.width = 20 
