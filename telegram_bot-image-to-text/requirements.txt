@@ -5,4 +5,3 @@ torch==2.5.1
 easyocr==1.7.2
 numpy==2.2.1
 opencv-python==4.10.0.84
-#Requires Python >= 3.10, <= 3.12

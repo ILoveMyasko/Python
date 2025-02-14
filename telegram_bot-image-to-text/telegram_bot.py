@@ -10,6 +10,7 @@ import easyocr
 import numpy as np
 import cv2 as cv
 
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
@@ -83,7 +84,7 @@ async def receive_language(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         await update.message.reply_text(f"Язык перевода установлен на: {language}")
         return ConversationHandler.END 
     else:
-        await update.message.reply_text("Неверный язык. Пожалуйста, введите один из доступных языков: en, ru, sp.")
+        await update.message.reply_text("Неверный язык. Пожалуйста, введите один из доступных языков. Для просмотра языков воспользуйтесь командой /languages.")
         return LANGUAGE  # Повторяем этот этап для получения корректного ответа
 
 async def cancel(update: Update, context: CallbackContext) -> int:
@@ -92,14 +93,14 @@ async def cancel(update: Update, context: CallbackContext) -> int:
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token('7361029236:AAGs7qp56N0J5lr9Irk60VvO3c5dxXYRGGc').build() #insert your token here
-    
+
     start_handler = CommandHandler('start', start)
     unknown_handler = MessageHandler(filters.COMMAND, unknown)
     image_handler = MessageHandler(filters.PHOTO, handle_photo)
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("translateto", set_translation_language)],
         states={
-            LANGUAGE: [MessageHandler(filters.TEXT & ~filters.COMMAND, receive_language)],
+            LANGUAGE: [MessageHandler(filters.TEXT & ~filters.COMMAND, receive_language)]
         },
         fallbacks=[CommandHandler('cancel', cancel)]
     )
@@ -111,3 +112,4 @@ if __name__ == '__main__':
     application.add_handler(unknown_handler)
 
     application.run_polling()
+   
