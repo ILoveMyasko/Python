@@ -186,35 +186,3 @@ class Quaternion:
             return math.isclose(self.w, other) and math.isclose(self.x, 0) and math.isclose(self.y, 0) and math.isclose(self.z, 0)
         else:
             return False
-
-
-if __name__ == "__main__":
-
-    """An example"""
-    q1 = Quaternion(5, 6, 7, 8)
-    q2 = Quaternion(1, 2, 3, 4)
-    result = q1 * q2
-    print(result)
-    print()
-    print(f"{'q1'}     {q1}")
-    print(f"{'q2'}     {q2}")
-    print(q1==q2)
-    print(f"{'q1 * 2'}     {q1 * 2}")
-    print(f"{'q1 / 2'}     {q1 / 2}")
-    print(f"{'q1 / q2'}     {q1 / q2}")
-    print(f"{'q2 - 2.2'}     {q2 - 2.2}")
-    print(f"{'q2 + 0.2'}     {q2 + 0.2}")
-    print()
-    print(f"{'q1 + q2'}     {q1 + q2}")
-    print(f"{'q1 - q2'}     {q1 - q2}")
-    print(f"{'q1 * q2'}     {q1 * q2}")
-    print()
-    print(f"{'-q1'}     {-q1}")
-    print(f"{'Conjugated for q2'}     {q2.conjugate}")
-    print(f"{'q2 Norm'}     {q2.norm}")
-    print()
-    print(f"q2 * q2.inversed == 1  : {q2 * q2.inverse == 1}")
-    print()
-    print(q2.__str__())
-    print(f"Rotate : {q2.rotate_vector(vector=[1,2,3])}")
-   

@@ -62,24 +62,3 @@ class Square(Rectangle):
         print("height setter")
         self._width = self._height = value
 
-if __name__ == "__main__":
- rectangle = Rectangle(width=50, height=100, x=0, y=0)
- rectangle.height = 40
- print(f"Rectangle: width={rectangle.width}, height={rectangle.height}")
- print(f"Rectangle's area = {rectangle.area}")
-
-
- square = Square(side=10, x=5, y=5)
- print(square.width)
- print(square.height)
-
- print(f"Square: width={square.width}, height={square.height}")
-
- # now lets change width and then height and check whether height and width respectively also changed.
- square.width = 20 
- print(f"Width increased to {square.width}, Square: width={square.width}, height={square.height}")
- print(f"Square's area = {square.area}")
-
- square.height = 30
- print(f"Height increased to {square.height}, Square: width={square.width}, height={square.height}")
- print(f"Square's area = {square.area}")
